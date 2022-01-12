@@ -680,3 +680,38 @@ Line: 567, column: 0
 console.error: ({})
 JavaScript error: resource://devtools/shared/DevToolsUtils.js, line 567: NS_BASE_STREAM_CLOSED: Component returned failure code: 0x80470002 (NS_BASE_STREAM_CLOSED) [nsIInputStream.available]
 JavaScript error: , line 0: NotFoundError: No such JSWindowActor 'DevToolsFrame'
+JavaScript error: , line 0: NS_ERROR_NOT_AVAILABLE
+[Child 7620, MediaDecoderStateMachine #1] WARNING: 1fe3234af20 Could not set cubeb stream name.: file /builds/worker/checkouts/gecko/dom/media/AudioStream.cpp:367
+[Child 7620, MediaDecoderStateMachine #1] WARNING: 1fe3234af20 Could not set cubeb stream name.: file /builds/worker/checkouts/gecko/dom/media/AudioStream.cpp:367
+[Child 7620, MediaDecoderStateMachine #1] WARNING: 1fe2937f3c0 Could not set cubeb stream name.: file /builds/worker/checkouts/gecko/dom/media/AudioStream.cpp:367
+[Child 7620, MediaDecoderStateMachine #1] WARNING: 1fe2937f3c0 Could not set cubeb stream name.: file /builds/worker/checkouts/gecko/dom/media/AudioStream.cpp:367
+[Child 7620, MediaDecoderStateMachine #1] WARNING: 1fe3234a900 Could not set cubeb stream name.: file /builds/worker/checkouts/gecko/dom/media/AudioStream.cpp:367
+SourceActor threw an exception: [Exception... "Component returned failure code: 0x80470002 (NS_BASE_STREAM_CLOSED) [nsIInputStream.available]"  nsresult: "0x80470002 (NS_BASE_STREAM_CLOSED)"  location: "JS frame :: resource://devtools/shared/DevToolsUtils.js :: onResponse :: line 567"  data: no]
+Stack: onResponse@resource://devtools/shared/DevToolsUtils.js:567:34
+onStopRequest@resource://gre/modules/NetUtil.jsm:128:18
+Line: 567, column: 0
+console.error: ({})
+JavaScript error: resource://devtools/shared/DevToolsUtils.js, line 567: NS_BASE_STREAM_CLOSED: Component returned failure code: 0x80470002 (NS_BASE_STREAM_CLOSED) [nsIInputStream.available]
+1641946600087	geckodriver	INFO	Listening on 127.0.0.1:49840
+1641946603126	mozrunner::runner	INFO	Running command: "D:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "--remote-debugging-port" "49841" "-no-remote" "-profile" "C:\\Users\\Siarczyn\\AppData\\Local\\Temp\\rust_mozprofile8LHB1n"
+1641946603433	Marionette	INFO	Marionette enabled
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at C:\\Users\\Siarczyn\\AppData\\Local\\Temp\\rust_mozprofile8LHB1n\\search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:49841/devtools/browser/c1f3793e-124b-4fb4-b331-92da78a7319d
+1641946605443	Marionette	INFO	Listening on port 49846
+1641946605741	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+1641946605918	Marionette	INFO	Stopped listening on port 49846
+console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkError when attempting to fetch resource.
+console.error: Region.jsm: "Error fetching region" (new TypeError("NetworkError when attempting to fetch resource.", ""))
+console.error: Region.jsm: "Failed to fetch region" (new Error("NO_RESULT", "resource://gre/modules/Region.jsm", 419))
+JavaScript error: chrome://remote/content/marionette/cert.js, line 55: NS_ERROR_NOT_AVAILABLE: Component returned failure code: 0x80040111 (NS_ERROR_NOT_AVAILABLE) [nsICertOverrideService.setDisableAllSecurityChecksAndLetAttackersInterceptMyData]
+
+###!!! [Parent][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+1641946982992	geckodriver	INFO	Listening on 127.0.0.1:50117
+1641946986041	mozrunner::runner	INFO	Running command: "D:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "--remote-debugging-port" "50118" "-no-remote" "-profile" "C:\\Users\\Siarczyn\\AppData\\Local\\Temp\\rust_mozprofilesnR6Nl"
+1641946986348	Marionette	INFO	Marionette enabled
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at C:\\Users\\Siarczyn\\AppData\\Local\\Temp\\rust_mozprofilesnR6Nl\\search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:50118/devtools/browser/86f77902-35e6-4a9d-919c-ee3ff442dabd
+1641946988585	Marionette	INFO	Listening on port 50123
+1641946988664	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://www.instagram.com"
