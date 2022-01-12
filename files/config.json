@@ -1,7 +1,7 @@
 {
-    "username":"sztukigaleria@gmail.com",
-    "password":"sztukigaleria1234",
-    "hashtag":"painting",
+    "username":"username",
+    "password":"password",
+    "hashtag":"hashtagtosearch",
     "time_interval":100,
     "chance_of_like":70,
     "chance_of_follow":20,
