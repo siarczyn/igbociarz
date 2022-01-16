@@ -29,7 +29,7 @@ def arrow_right(bot):
 def perform_like(bot):
     photo = bot.find_element_by_xpath("/html/body/div[6]/div[3]/div/article/div/div[2]/div/div/div[2]/div[2]/a/time")
     action = webdriver.common.action_chains.ActionChains(bot)
-    action.move_to_element_with_offset(photo, 50, 50)
+    action.move_to_element_with_offset(photo, -50, -50)
     print('like')
     action.click()
     action.click()
