@@ -204,6 +204,7 @@ def run():
     options = Options()
     options.headless = True
     service = Service(r"files\geckodriver.exe")
+
     print(service)
     driver = webdriver.Firefox(service=service)   
     #driver = webdriver.Firefox(r"C:\Users\Siarczyn\Desktop\bot\files\geckodriver.exe")   
