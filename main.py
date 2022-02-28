@@ -10,6 +10,7 @@ from selenium.webdriver import Firefox
 from selenium.webdriver.firefox.service import Service
 from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.firefox.firefox_profile import FirefoxProfile
+from unfollow import full_unfollow
 
 def load_config():
     with open('files/config.json') as file:
@@ -128,6 +129,7 @@ def bot(bot):
     settings = load_config()
     sleep(2)
     bot.get('https://www.instagram.com/')
+    full_unfollow(bot,10)
     sleep(2)
     accept_cookies = bot.find_element_by_xpath("/html/body/div[4]/div/div/button[1]")
     accept_cookies.click()
@@ -163,6 +165,7 @@ def bot(bot):
     sleep(2)
     #Refrsh loop
     #get_to_unfollow()
+    full_unfollow(bot,10)
     while True:
         #Loop counters
         photo_interactions = 0
