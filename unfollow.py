@@ -15,14 +15,15 @@ def get_followed(amount):
     left = 0
     for line in lines:
         data = line.strip().split(',')
-        if datetime.strptime(data[1], '%Y-%m-%d %H:%M:%S.%f') + dt.timedelta(days=4) < current_date and left < amount:
+        if  datetime.strptime(data[1], '%Y-%m-%d %H:%M:%S.%f') + dt.timedelta(days=4) < current_date and left<amount :
             unfollow_list.append([datetime.strptime(data[1], '%Y-%m-%d %H:%M:%S.%f'), data[0]])
             left += 1
-            print(left)
         else:
             follow_list.append([datetime.strptime(data[1], '%Y-%m-%d %H:%M:%S.%f'), data[0]])
-    print("f3")
+
     file.close()
+    print("f3")
+
     file = open("files/to_follow.txt", "w+")
     for line in follow_list:
         file.write(str(line[1]) + "," + str(line[0]) + "\n")
@@ -56,9 +57,13 @@ def full_unfollow(bot, amount):
     for user in to_unfollow:
         try:
             if check_status(bot, user[1], followed):
-                sleep(1)
+                sleep(3)
                 following = bot.find_element_by_xpath(followed)
                 following.click()
+                sleep(2)
+                confirm_unfollow = bot.find_element_by_xpath("/html/body/div[6]/div/div/div/div[3]/button[1]")
+                confirm_unfollow.click()
+                sleep(2)
         except:
             failed.append(user)
     file = open("files/failed_unfollows.txt", "a+")

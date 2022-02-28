@@ -129,7 +129,6 @@ def bot(bot):
     settings = load_config()
     sleep(2)
     bot.get('https://www.instagram.com/')
-    full_unfollow(bot,10)
     sleep(2)
     accept_cookies = bot.find_element_by_xpath("/html/body/div[4]/div/div/button[1]")
     accept_cookies.click()
