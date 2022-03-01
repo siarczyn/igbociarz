@@ -42,6 +42,7 @@ def check_exists_by_xpath(xpath, bot):
 
 def check_status(bot, href, path):
     bot.get(href)
+    sleep(2)
     print(check_exists_by_xpath(path, bot))
     return check_exists_by_xpath(path, bot)
 
@@ -60,10 +61,10 @@ def full_unfollow(bot, amount):
                 sleep(3)
                 following = bot.find_element_by_xpath(followed)
                 following.click()
-                sleep(2)
+                sleep(3)
                 confirm_unfollow = bot.find_element_by_xpath("/html/body/div[6]/div/div/div/div[3]/button[1]")
                 confirm_unfollow.click()
-                sleep(2)
+                sleep(3)
         except:
             failed.append(user)
     file = open("files/failed_unfollows.txt", "a+")

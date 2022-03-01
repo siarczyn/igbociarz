@@ -73,7 +73,7 @@ def get_to_unfollow():
     follow_list = []
     unfollow_list = []
     failed = []
-    file = open("files/to_follow.txt", "r+")
+    file = open("files/to_follow.txt", "r")
     lines = file.readlines()
     for line in lines:
         data = line.strip().split(',')
@@ -82,7 +82,7 @@ def get_to_unfollow():
         else:
             follow_list.append([datetime.strptime(data[1], '%Y-%m-%d %H:%M:%S.%f'), data[0]])
     file.close()
-    file = open("files/to_follow.txt", "w+")
+    file = open("files/to_follow.txt", "w")
     for line in follow_list:
         file.write(str(line[1]) + "," + str(line[0]) + "\n")
     file.close()
@@ -164,7 +164,7 @@ def bot(bot):
     sleep(2)
     #Refrsh loop
     #get_to_unfollow()
-    full_unfollow(bot,10)
+    full_unfollow(bot,15)
     while True:
         #Loop counters
         photo_interactions = 0
