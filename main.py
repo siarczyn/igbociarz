@@ -28,8 +28,8 @@ def arrow_right(bot):
 
 def perform_like(bot):
 #    photo = bot.find_element_by_xpath("/html/body/div[6]/div[3]/div/article/div/div[2]/div/div/div[2]/div[2]/a/time") wersja chwilowo nie dziala
-    photo = bot.find_element_by_xpath("/html/body/div[6]/div[3]/div/article/div/div[2]/div/div/div[2]/div[2]/a/div/time")
-
+#    photo1 = bot.find_element_by_xpath("/html/body/div[6]/div[3]/div/article/div/div[2]/div/div/div[2]/div[2]/a/div/time") chwilowo nie dziala
+    photo =bot.find_element_by_xpath("/html/body/div[6]/div[3]/div/article/div/div[2]/div/div/div[2]/div[2]/div/a/div/time")
     action = webdriver.common.action_chains.ActionChains(bot)
     action.move_to_element_with_offset(photo, -50, -50)
     print('like')
@@ -209,7 +209,8 @@ def run():
     service = Service(r"files\geckodriver.exe")
 
     print(service)
-    driver = webdriver.Firefox(service=service)   
+    driver = webdriver.Firefox(service=service)
+    driver.delete_all_cookies()
     #driver = webdriver.Firefox(r"C:\Users\Siarczyn\Desktop\bot\files\geckodriver.exe")   
 
 
