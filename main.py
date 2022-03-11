@@ -164,7 +164,7 @@ def bot(bot):
     sleep(2)
     #Refrsh loop
     #get_to_unfollow()
-    full_unfollow(bot,15)
+    #full_unfollow(bot,15)
     while True:
         #Loop counters
         photo_interactions = 0
