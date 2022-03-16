@@ -163,7 +163,6 @@ def bot(bot):
         pass
     sleep(2)
     #Refrsh loop
-    #get_to_unfollow()
     #full_unfollow(bot,15)
     while True:
         #Loop counters
