@@ -27,23 +27,70 @@ class insta_bot:
             settings = json.load(file)
         return settings
 
-    def arrow_right(self, bot):
-        actions = ActionChains(bot)
-        actions.send_keys(Keys.ARROW_RIGHT)
-        # new=bot.find_element_by_xpath("/html/body/div[6]/div[1]/div/div/div[2]/button")
-        # new.click()
-        actions.perform()
+    def determine_format(self, bot):
+
+        if (bot.find_element(By.XPATH, "//video")):
+            print("video")
+            print()
+            bot.find_element(By.XPATH,
+                             "//svg*[@aria-label='Dalej']")[0].click()
+        if (bot.find_element(By.XPATH, "//svg*[@aria-label='Dalej']").length >
+                1):
+            print(bot.find_element(By.XPATH, "//svg*[@aria-label='Dalej']"))
+            print(
+                bot.find_element(By.XPATH,
+                                 "//svg*[@aria-label='Dalej']")[1].click())
+            print("zdjecia")
+        else:
+            print(
+                bot.find_element(By.XPATH,
+                                 "//svg*[@aria-label='Dalej']").click())
+            print("zdjecie")
+
+    def change_photo(self, bot):
+        self.determine_format(bot)
 
     def perform_like(self, bot):
+        #//*[@id="mount_0_0_5k"]/div/div/div/div[2]/div/div/div[1]/div/div[3]/div/div/div/div/div[2]/div/article/div/div[3]/div/div/section[1]/span[1]/button/div[1]/svg
         #    photo = bot.find_element_by_xpath("/html/body/div[6]/div[3]/div/article/div/div[2]/div/div/div[2]/div[2]/a/time") wersja chwilowo nie dziala
+        # //*[local-name()='svg' and @data-icon='home']/*[local-name()='path']
+        # /html/body/div[2]/div/div/div/div[2]/div/div/div[1]/div/div[3]/div/div/div/div/div[2]/div/article/div/div[3]/div/div/section[1]/span[1]/button/div[1]/svg
         #    photo1 = bot.find_element_by_xpath("/html/body/div[6]/div[3]/div/article/div/div[2]/div/div/div[2]/div[2]/a/div/time") chwilowo nie dziala
-        photo = bot.find_element_by_xpath(
-            "/html/body/div[6]/div[3]/div/article/div/div[2]/div/div/div[2]/div[2]/div/a/div/time"
-        )
-        action = webdriver.common.action_chains.ActionChains(bot)
-        action.move_to_element_with_offset(photo, -50, -50)
+        print("wejscie")
+        print("wejscie")
+
+        # wait.until(
+        #     EC.presence_of_all_elements_located(
+        #         (By.XPATH, "//svg*[@aria-label='Lubię to!']")))[0]
+        print("wejscie")
+        self.small_wait()
+        self.small_wait()
+
+        photo = bot.find_element(
+            By.XPATH, "//*[local-name()='svg' and @aria-label='Lubię to!']")
+        self.small_wait()
+        self.small_wait()
+
+        print(photo)
+        print(photo.get_attribute())
+        print(photo.get_property())
+
+        photo1 = photo.find_element(By.XPATH, '..')
+        self.small_wait()
+
+        photo2 = photo1.find_element(By.XPATH, '..')
+        self.small_wait()
+        print(photo.get_attribute())
+        print(photo.get_property())
+
+        print(photo1.get_attribute())
+        print(photo1.get_property())
+
+        print(photo2.get_attribute())
+        print(photo2.get_property())
+        action = ActionChains(bot)
+        action.move_to_element(photo1)
         print("like")
-        action.click()
         action.click()
         action.perform()
 
@@ -52,104 +99,83 @@ class insta_bot:
         # buttons[2].click()
         headers_2 = bot.find_elements_by_tag_name("h2")
         #    button = bot.find_element_by_xpath("/html/body/div[6]/div[3]/div/article/div/div[2]/div/div/div[1]/div/header/div[2]/div[1]/div[2]/button") wersja nie dziala
-        button = bot.find_element_by_xpath(
-            "/html/body/div[6]/div[3]/div/article/div/div[2]/div/div/div[1]/div/header/div[2]/div[1]/div[2]/button/div"
-        )
+        # try:
+        print("trying follow")
+        button = bot.find_element(By.XPATH, "//*[contains(text(),'Obserwuj')")
 
         button.click()
+        print("followed succesfully")
+
         # followbutton = bot.find_elements_by_xpath("//*[contains(text(), 'Follow')]")
         # followbutton.click()
-        print("jjj")
-        line = "https://www.instagram.com/" + str(headers_2[2].text) + "/"
-        file = open("files/to_follow.txt", "a+")
-        file.write(str(line) + "," + str(datetime.now()) + "\n")
-        file.close()
-
-    def unfollow_user(self, bot, href):
-        sleep(15)
-        bot.get(href)
-        sleep(10)
-        following = bot.find_element_by_xpath(
-            "/html/body/div[1]/section/main/div/header/section/div[1]/div[1]/div/div[2]/div/span/span[1]/button"
-        )
-        following.click()
-        sleep(5)
-        confirmFollow = bot.find_element_by_xpath(
-            "/html/body/div[6]/div/div/div/div[3]/button[1]")
-        confirmFollow.click()
 
     def small_wait(self):
         return random.randint(1, 10)
 
-    def get_to_unfollow(self):
-        current_date = datetime.now()
-        follow_list = []
-        unfollow_list = []
-        failed = []
-        file = open("files/to_follow.txt", "r")
-        lines = file.readlines()
-        for line in lines:
-            data = line.strip().split(",")
-            if (datetime.strptime(data[1], "%Y-%m-%d %H:%M:%S.%f") +
-                    dt.timedelta(days=2) < current_date):
-                unfollow_list.append([
-                    datetime.strptime(data[1], "%Y-%m-%d %H:%M:%S.%f"), data[0]
-                ])
-            else:
-                follow_list.append([
-                    datetime.strptime(data[1], "%Y-%m-%d %H:%M:%S.%f"), data[0]
-                ])
-        file.close()
-        file = open("files/to_follow.txt", "w")
-        for line in follow_list:
-            file.write(str(line[1]) + "," + str(line[0]) + "\n")
-        file.close()
-        for user in unfollow_list:
-            try:
-                self.unfollow_user(bot, user[1])
-            except:
-                failed.append(user)
-        file = open("files/failed_unfollows.txt", "a+")
-        for line in failed:
-            print(str(line[1]) + "," + str(line[0]) + "\n")
-        file.close()
+    def input_text(self, element, text):
+        chars = list(text)
+        for char in chars:
+            sleep(random.random())
+            element.send_keys(char)
 
-    def getcontent(self, bot, settings):
-        bot.get("https://www.instagram.com/explore/tags/" +
-                settings["hashtag"] + "/")
+    def go_to_photos(self, bot):
+        # try:
+        print("myslisz jeszcze?")
+        # wait = WebDriverWait(bot, 60)
+        # print("To")
+        # target = wait.until(
+        #     EC.presence_of_all_elements_located(
+        #         (By.XPATH, "//*[contains(text(),'Najnowsze'")))[0]
+        print("moze to?")
+        target = bot.find_element(
+            By.XPATH,
+            "/html/body/div[2]/div/div/div/div[1]/div/div/div/div[1]/section/main/article/h2"
+        )
+        print(target)
+        bot.execute_script("arguments[0].scrollIntoView();", target)
+        print("pierwsza proba")
+        actions = ActionChains(bot)
+        actions.move_to_element_with_offset(target, 25, 100)
+        actions.click()
+        actions.perform()
+        print("pierwsza done")
+
+    def get_content(self, bot, settings):
+        searchbox = bot.find_element(
+            By.XPATH, "//input[@aria-label='Pole wejściowe wyszukiwania']")
+        self.input_text(searchbox, '#' + settings["hashtag"])
+        sleep(10)
+        actions = ActionChains(bot)
+        actions.send_keys(Keys.ENTER)
+        actions.send_keys(Keys.ENTER)
+        actions.perform()
+
         sleep(6)
-        try:
-            target = bot.find_element_by_xpath(
-                "/html/body/div[1]/section/main/article/h2")
-            bot.execute_script("arguments[0].scrollIntoView();", target)
-            sleep(5)
-            actions = ActionChains(bot)
-            sleep(5)
-            actions.move_to_element_with_offset(target, 0, +150)
-            actions.click()
-            sleep(5)
-            actions.perform()
-        except:
-            sleep(5)
-            try:
-                target = bot.find_element_by_xpath(
-                    "/html/body/div[1]/section/main/article/h2")
-                bot.execute_script("arguments[0].scrollIntoView();", target)
-                sleep(3)
-                actions = ActionChains(bot)
-                sleep(2)
+        print("go to photos")
+        self.go_to_photos(bot)
 
-                actions.move_to_element_with_offset(target, 0, +150)
-                actions.click()
-                sleep(2)
-                actions.perform()
-            except:
-                bot(bot)
-
-    def login(self, bot, setting):
+    def login(self, bot, settings):
         """function to enable cookies and login into account"""
         sleep(self.small_wait())
+        bot.add_cookie(
+{'domain': '.instagram.com', 'expiry': 1705682269, 'httpOnly': True, 'name': 'ig_did', 'path': '/', 'secure': True, 'value': '89273B4D-5CAD-4702-8629-EAD5BB229414'}
 
+        )
+        bot.add_cookie(
+
+{'domain': '.instagram.com', 'expiry': 1705682269, 'httpOnly': False, 'name': 'mid', 'path': '/', 'secure': True, 'value': 'Y5tNXQALAAFqPw3mfZVl1O31E-_e'}
+
+        )
+        bot.add_cookie(
+
+{'domain': '.instagram.com', 'expiry': 1702571896, 'httpOnly': False, 'name': 'csrftoken', 'path': '/', 'secure': True, 'value': 'nNtcYeGSsuJDBoEQfLOfVkmE7wGGwx06'}
+        )
+        cookies = bot.get_cookies()
+        for cookie in cookies:
+            print(cookie)
+        
+        bot.get("https://www.instagram.com/explore/tags/konie/")
+        # sleep(120)
         wait = WebDriverWait(bot, 60)
         wait.until(
             EC.presence_of_all_elements_located((
@@ -158,53 +184,71 @@ class insta_bot:
             )))[0].click()
         sleep(self.small_wait())
 
-        # Login
         wait.until(EC.presence_of_all_elements_located(
-            (By.NAME, 'username')))[0].send_keys(settings["username"])
-        sleep(self.small_wait())
-
-        wait.until(EC.presence_of_all_elements_located(
-            (By.NAME, 'password')))[0].send_keys(settings["password"])
-        sleep(self.small_wait())
+            (By.NAME, 'username')))[0]
+        self.input_text(bot.find_element(By.NAME, 'username'),
+                        settings["username"])
+        self.input_text(bot.find_element(By.NAME, 'password'),
+                        settings["password"])
         wait.until(
             EC.presence_of_all_elements_located(
                 (By.XPATH, "//button[@type='submit']")))[0].click()
         print("login successful")
+        cookies = bot.get_cookies()
+        for cookie in cookies:
+            print(cookie)
+        bot.quit()
+        sleep(3)
+        driver = webdriver.Chrome()
+        for cookie in cookies:
+            driver.add_cookie(cookie)
+        driver.get("https://www.instagram.com/")
 
     def bot(self, bot):
         settings = self.load_config()
-        bot.get("https://www.instagram.com/")
+        # bot.get("https://www.instagram.com/")
         self.login(bot, settings)
         sleep(self.small_wait())
+        # sleep(30)
 
+        # login popup:
         try:
-            login_popup = bot.find_element_by_xpath(
-                "/html/body/div[1]/section/main/div/div/div/div/button")
-            login_popup.click()
+            bot.find_element(By.XPATH,
+                             "//section/main/div/div/div/div/button").click()
+            print("login popup")
+
         except:
+            print("failed l")
             pass
         sleep(2)
+        print("login popup")
+        #notification popup
         try:
-            notification_popup = bot.find_element_by_xpath(
-                "/html/body/div[5]/div/div/div/div[3]/button[2]")
-            notification_popup.click()
+            bot.find_element(
+                By.XPATH,
+                "/html/body/div[2]/div/div/div/div[2]/div/div/div[1]/div/div[2]/div/div/div/div/div[2]/div/div/div[3]/button[2]"
+            ).click()
+            print("notification popup")
         except:
+            print("failed n")
             pass
+        print("notification popup")
         sleep(2)
         # Refrsh loop
-
         # full_unfollow(bot,15)
         while True:
             # Loop counters
             photo_interactions = 0
             # Go to hashtag & newest photo
             sleep(5)
-
-            self.getcontent(bot, settings)
+            self.get_content(bot, settings)
 
             sleep(5)
             # photo count loop
+            print("while")
             while photo_interactions <= 12:
+                print("while")
+
                 decision = randrange(100)
                 if decision < settings["chance_of_like"]:
                     try:
@@ -213,7 +257,8 @@ class insta_bot:
                         print("like")
                     except:
                         print("failed like")
-                        self.getcontent(bot, settings)
+                        sleep(50)
+                        self.get_content(bot, settings)
                         photo_interactions -= 1
                 elif (decision >= settings["chance_of_like"]
                       and decision < settings["chance_of_like"] +
@@ -223,18 +268,18 @@ class insta_bot:
                         print("followed")
                     except:
                         print("failed follow")
-                        self.getcontent(bot, settings)
+                        self.get_content(bot, settings)
                         photo_interactions -= 1
                 else:
                     pass
                 photo_interactions += 1
                 sleep(5)
-                self.arrow_right(bot)
+                self.change_photo(bot)
                 sleep(settings["time_interval"])
 
     def run(self):
-        # options = Options()
-        # options.headless = True
+        options = Options()
+        options.headless = True
         # service = Service(
         #     r'D:\projects\IGBOT\igbociarz\src\app\chromedriver.exe')
 
@@ -248,9 +293,9 @@ class insta_bot:
 
         except:
             sleep(30)
-            driver.close()
+            # driver.close()
             sleep(30)
-            self.run()
+            # self.run()
 
 
 bociarz = insta_bot()
